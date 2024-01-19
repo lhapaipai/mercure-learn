@@ -1,0 +1,36 @@
+{
+	order mercure after encode
+}
+
+localhost {
+	log {
+		format console
+	}
+
+	encode zstd gzip
+
+	mercure {
+		# Transport to use (default to Bolt)
+		transport_url "bolt://mercure.db"
+		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} HS256
+		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} HS256
+
+		# Permissive configuration for the development environment
+		cors_origins *
+
+		# Origins allowed to publish updates
+		publish_origins *
+
+		# Donne accès à la page /.well-known/mercure/ui/ pour les tests
+		demo
+		# Allow subscribers with no valid JWT.
+		anonymous
+
+		# Dispatch updates when subscriptions are created or terminated
+		subscriptions
+	}
+	respond "hello" 200
+	redir / /.well-known/mercure/ui/
+	respond /healthz 200
+	respond "Not Found" 404
+}

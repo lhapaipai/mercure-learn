@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
+</head>
+
+<body>
+  <form id="mercure-form" enctype="application/x-www-form-urlencoded">
+    <label>
+      Topic
+      <input type="text" name="topic" value="https://example.com/my-private-topic">
+    </label>
+    <label>
+      data
+      <textarea name="data">{foo: 'hello world'}</textarea>
+    </label>
+    <div>
+      <input type="submit" id="send" name="submit" value="send request">
+    </div>
+  </form>
+
+  <input type="button" id="reset" name="reset" value="reset">
+
+  <div id="output"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

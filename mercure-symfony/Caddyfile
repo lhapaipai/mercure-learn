@@ -1,0 +1,34 @@
+{
+	debug
+
+	order mercure after encode
+	# order vulcain after reverse_proxy
+}
+
+mercure-symfony.localhost {
+	log {
+		format console
+	}
+
+	root * public/
+
+	encode zstd gzip
+
+	mercure {
+		transport_url bolt://mercure.db
+		publisher_jwt "!ChangeThisMercureHubJWTSecretKey!" HS256
+		subscriber_jwt "!ChangeThisMercureHubJWTSecretKey!" HS256
+
+		cors_origins *
+		publish_origins *
+
+		demo
+		anonymous
+		subscriptions
+	}
+
+	respond /healthz 200
+
+	file_server browse
+	php_fastcgi unix//run/php/php8.3-fpm.sock
+}
